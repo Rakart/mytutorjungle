@@ -12,3 +12,11 @@
 	right: 10px;
 	position: absolute;
 }
+
+.login-form-bg {
+	background-color: lightgrey;
+	border: 15px solid;
+	border-radius: 15px;
+	border-color: lightgrey;
+	margin-top: 50px;
+}
