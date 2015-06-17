@@ -10,6 +10,33 @@ tutorsApp.controller('TutorsController', ['$scope', '$stateParams', 'Authenticat
 		// Find a list of Tutors
 		this.tutors = Tutors.query();
 
+		// Open a modal window to create a single registered tutor
+		this.modalCreate = function (size) {
+
+			var modalInstance = $modal.open({
+				templateUrl: 'modules/tutors/views/create-tutor.client.view.html',
+				controller: function($scope, $modalInstance) {
+
+					$scope.ok = function (isValid) {
+						if (isValid){
+							$modalInstance.close();
+						}
+					};
+
+					$scope.cancel = function () {
+						$modalInstance.dismiss('cancel');
+					};
+
+				},
+				size: size,
+			});
+
+			modalInstance.result.then(function (selectedItem) {
+			}, function () {
+				$log.info('Modal dismissed at: ' + new Date());
+			});
+		};
+
 		// Open a modal window to update a single registered tutor
 		this.modalUpdate = function (size, selectedTutor) {
 
@@ -17,6 +44,17 @@ tutorsApp.controller('TutorsController', ['$scope', '$stateParams', 'Authenticat
 		      templateUrl: 'modules/tutors/views/edit-tutor.client.view.html',
 		      controller: function($scope, $modalInstance, tutor) {
 		      	$scope.tutor = tutor;
+
+		      	$scope.ok = function (isValid) {
+					if (isValid){
+						$modalInstance.close($scope.tutor);
+					}
+				};
+
+				$scope.cancel = function () {
+				    $modalInstance.dismiss('cancel');
+				};
+
 		      },
 		      size: size,
 		      resolve: {
@@ -32,25 +70,30 @@ tutorsApp.controller('TutorsController', ['$scope', '$stateParams', 'Authenticat
 	      		$log.info('Modal dismissed at: ' + new Date());
 		    });
 	  	};
+
+		// Remove existing Tutor
+		this.remove = function(tutor) {
+			if ( tutor ) {
+				tutor.$remove();
+
+				for (var i in this.tutors) {
+					if (this.tutors [i] === tutor) {
+						this.tutors.splice(i, 1);
+					}
+				}
+			} else {
+				this.tutor.$remove(function() {
+				});
+			}
+		};
 	}
 ]);
 
 // Tutors create controller
-tutorsApp.controller('TutorsCreateController', ['$scope', 'Tutors',
-	function($scope, Tutors) {
-	}
-]);
-
-// Tutors edit controller
-tutorsApp.controller('TutorsUpdateController', ['$scope', 'Tutors',
-	function($scope, Tutors) {
-	}
-]);
-
-		
-/*
+tutorsApp.controller('TutorsCreateController', ['$scope', 'Tutors', 'Notify',
+	function($scope, Tutors, Notify) {
 		// Create new Tutor
-		$scope.create = function() {
+		this.create = function() {
 			// Create new Tutor object
 			var tutor = new Tutors ({
 				firstName: this.firstName,
@@ -64,57 +107,49 @@ tutorsApp.controller('TutorsUpdateController', ['$scope', 'Tutors',
 
 			// Redirect after save
 			tutor.$save(function(response) {
-				$location.path('tutors/' + response._id);
 
-				// Clear form fields
-				$scope.firstName = '';
-				$scope.lastName = '';
-				$scope.suburb = '';
-				$scope.country = '';
-				$scope.email = '';
-				$scope.phone = '';
-				$scope.moeCert = '';
+				Notify.sendMsg('NewTutor', {'id': response._id});
 
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
 		};
 
-		// Remove existing Tutor
-		$scope.remove = function(tutor) {
-			if ( tutor ) { 
-				tutor.$remove();
+	}
+]);
 
-				for (var i in $scope.tutors) {
-					if ($scope.tutors [i] === tutor) {
-						$scope.tutors.splice(i, 1);
-					}
-				}
-			} else {
-				$scope.tutor.$remove(function() {
-					$location.path('tutors');
-				});
-			}
-		};
+// Tutors edit controller
+tutorsApp.controller('TutorsUpdateController', ['$scope', 'Tutors',
+	function($scope, Tutors) {
 
 		// Update existing Tutor
-		$scope.update = function() {
-			var tutor = $scope.tutor;
+		this.update = function(updatedTutor) {
+			var tutor = updatedTutor;
 
 			tutor.$update(function() {
-				$location.path('tutors/' + tutor._id);
+
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
 		};
+	}
+]);
 
 
+tutorsApp.directive('tutorList', [ 'Tutors', 'Notify', function(Tutors, Notify) {
+	return {
+		restrict: 'E',
+		transclude: true,
+		templateUrl: 'modules/tutors/views/tutor-view-template.html',
+		link: function(scope, elem, attr) {
 
-		// Find existing Tutor
-		$scope.findOne = function() {
-			$scope.tutor = Tutors.get({ 
-				tutorId: $stateParams.tutorId
+			//when a new tutor is added, update the tutor list
+
+			Notify.getMsg('NewTutor', function(event, data) {
+
+				scope.tutorsCtrl.tutors = Tutors.query();
 			});
-		};
+		}
+	};
+}]);
 
-		*/

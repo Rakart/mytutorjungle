@@ -1,13 +1,12 @@
-<section data-ng-controller="TutorsController">
-    <div class="page-header">
-        <h1>New Tutor</h1>
+<section data-ng-controller="TutorsCreateController as tutorCtrl">
+    <div class="modal-header">
+        <h3 class="modal-title">New Tutor</h3>
     </div>
-    <div class="col-md-12">
-        <form class="" data-ng-submit="create()" novalidate>
-            <fieldset>
-                
-                <div class="row">
 
+    <div class="modal-body">
+        <form name="createTutorForm">
+            <fieldset>
+                <div class="row">
                     <div class="form-group">
                         <div data-ng-show="error" class="text-center text-danger">
                             <div class="alert alert-danger" role="alert">
@@ -17,32 +16,32 @@
                     </div>
 
                     <div class="col-sm-6">
-                        <i class="glyphicon glyphicon-user tutor-profile text-center" ng-class="{ 'text-primary': moeCert, 'text-danger': !moeCert }"></i>
+                        <i class="glyphicon glyphicon-user tutor-profile text-center" ng-class="{ 'text-primary': tutorCtrl.moeCert, 'text-pink': !tutorCtrl.moeCert }"></i>
                     </div>
                     
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label class="control-label" for="firstName">First Name</label>
                             <div class="controls">
-                                <input type="text" data-ng-model="firstName" id="firstName" class="form-control">
+                                <input type="text" data-ng-model="tutorCtrl.firstName" id="firstName" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="lastName">Last Name</label>
                             <div class="controls">
-                                <input type="text" data-ng-model="lastName" id="lastName" class="form-control">
+                                <input type="text" data-ng-model="tutorCtrl.lastName" id="lastName" class="form-control" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="suburb">Suburb</label>
                             <div class="controls">
-                                <input type="text" data-ng-model="suburb" id="suburb" class="form-control">
+                                <input type="text" data-ng-model="tutorCtrl.suburb" id="suburb" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="country">Country</label>
                             <div class="controls">
-                                <input type="text" data-ng-model="country" id="country" class="form-control">
+                                <input type="text" data-ng-model="tutorCtrl.country" id="country" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -54,13 +53,13 @@
                         <div class="form-group">
                             <label class="control-label" for="email">Email</label>
                             <div class="controls">
-                                <input type="text" data-ng-model="email" id="email" class="form-control">
+                                <input type="text" data-ng-model="tutorCtrl.email" id="email" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="phone">Phone</label>
                             <div class="controls">
-                                <input type="text" data-ng-model="phone" id="phone" class="form-control">
+                                <input type="text" data-ng-model="tutorCtrl.phone" id="phone" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -68,7 +67,7 @@
                         <div class="form-group">
                             <label class="control-label" for="moeCert">MOE Certified</label>
                             <div class="controls">
-                                <input type="checkbox" data-ng-model="moeCert" id="moeCert" class="form-control cert-checkbox">
+                                <input type="checkbox" data-ng-model="tutorCtrl.moeCert" id="moeCert" class="form-control cert-checkbox">
                             </div>
                         </div>
                     </div>
@@ -77,16 +76,12 @@
                     <div class="col-sm-6">
 
                     </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-large btn-success">
-                                Add Tutor & Close
-                            </button>
-                        </div>
-                    </div>
                 </div>
-
             </fieldset>
         </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="tutorCtrl.create();ok(createTutorForm.$valid)" ng-disabled="createTutorForm.$invalid">Save & Close</button>
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
     </div>
 </section>
