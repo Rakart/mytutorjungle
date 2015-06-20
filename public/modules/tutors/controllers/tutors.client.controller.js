@@ -5,14 +5,26 @@ var tutorsApp = angular.module('tutors');
 // Tutors controller
 tutorsApp.controller('TutorsController', ['$scope', '$stateParams', 'Authentication', 'Tutors', '$modal', '$log',
 	function($scope, $stateParams, Authentication, Tutors, $modal, $log) {
+
+		// Check for logged-in
 		this.authentication = Authentication;
 
-		// Find a list of Tutors
+		// Get the list of Tutors from mongodb
 		this.tutors = Tutors.query();
+
+		// Navigates through the tutors available.
+		$scope.selected = 0;
+		this.nextTutor = function(selected) {
+
+			if (selected === this.tutors.length - 1 ) {
+				$scope.selected = 0;
+			} else {
+				$scope.selected = selected + 1;
+			}
+		};
 
 		// Open a modal window to create a single registered tutor
 		this.modalCreate = function (size) {
-
 			var modalInstance = $modal.open({
 				templateUrl: 'modules/tutors/views/create-tutor.client.view.html',
 				controller: function($scope, $modalInstance) {
@@ -26,7 +38,6 @@ tutorsApp.controller('TutorsController', ['$scope', '$stateParams', 'Authenticat
 					$scope.cancel = function () {
 						$modalInstance.dismiss('cancel');
 					};
-
 				},
 				size: size,
 			});
@@ -39,7 +50,6 @@ tutorsApp.controller('TutorsController', ['$scope', '$stateParams', 'Authenticat
 
 		// Open a modal window to update a single registered tutor
 		this.modalUpdate = function (size, selectedTutor) {
-
 		    var modalInstance = $modal.open({
 		      templateUrl: 'modules/tutors/views/edit-tutor.client.view.html',
 		      controller: function($scope, $modalInstance, tutor) {
@@ -54,7 +64,6 @@ tutorsApp.controller('TutorsController', ['$scope', '$stateParams', 'Authenticat
 				$scope.cancel = function () {
 				    $modalInstance.dismiss('cancel');
 				};
-
 		      },
 		      size: size,
 		      resolve: {
@@ -98,11 +107,14 @@ tutorsApp.controller('TutorsCreateController', ['$scope', 'Tutors', 'Notify',
 			var tutor = new Tutors ({
 				firstName: this.firstName,
 				lastName: this.lastName,
-				suburb: this.suburb,
-				country: this.country,
+				age: this.age,
+				nric: this.nric,
+				blockNo: this.blockNo,
+				roadName: this.roadName,
+				unitNo: this.unitNo,
 				email: this.email,
 				phone: this.phone,
-				moeCert: this.moeCert
+				highestQual: this.highestQual
 			});
 
 			// Redirect after save
@@ -135,7 +147,6 @@ tutorsApp.controller('TutorsUpdateController', ['$scope', 'Tutors',
 	}
 ]);
 
-
 tutorsApp.directive('tutorList', [ 'Tutors', 'Notify', function(Tutors, Notify) {
 	return {
 		restrict: 'E',
@@ -144,12 +155,21 @@ tutorsApp.directive('tutorList', [ 'Tutors', 'Notify', function(Tutors, Notify) 
 		link: function(scope, elem, attr) {
 
 			//when a new tutor is added, update the tutor list
-
 			Notify.getMsg('NewTutor', function(event, data) {
 
 				scope.tutorsCtrl.tutors = Tutors.query();
 			});
 		}
+	};
+}]);
+
+
+// Tinder application view of the app.
+tutorsApp.directive('tutorTinder', ['Tutors', function(Tutors) {
+	return {
+		restrict: 'E',
+		templateUrl: 'modules/tutors/views/tutor-tinder-view.template.html',
+		transclude: true
 	};
 }]);
 

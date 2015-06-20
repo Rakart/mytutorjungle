@@ -15,33 +15,29 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-6">
-                        <i class="glyphicon glyphicon-user tutor-profile text-center" ng-class="{ 'text-primary': tutorCtrl.moeCert, 'text-pink': !tutorCtrl.moeCert }"></i>
+                    <div class="col-sm-6 text-center">
+                        <i class="glyphicon glyphicon-user tutor-profile" ng-class="{ 'text-primary': tutorCtrl.highestQual, 'text-pink': !tutorCtrl.highestQual }"></i>
                     </div>
                     
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label class="control-label" for="firstName">First Name</label>
                             <div class="controls">
-                                <input type="text" data-ng-model="tutorCtrl.firstName" id="firstName" class="form-control">
+                                <input type="text" data-ng-model="tutorCtrl.firstName" id="firstName" class="form-control text-muted" placeholder="First Name">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="lastName">Last Name</label>
                             <div class="controls">
-                                <input type="text" data-ng-model="tutorCtrl.lastName" id="lastName" class="form-control" required>
+                                <input type="text" data-ng-model="tutorCtrl.lastName" id="lastName" class="form-control text-muted" placeholder="Last Name" required>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="suburb">Suburb</label>
                             <div class="controls">
-                                <input type="text" data-ng-model="tutorCtrl.suburb" id="suburb" class="form-control">
+                                <input type="text" data-ng-model="tutorCtrl.age" id="age" class="form-control text-muted" placeholder="Age" required>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="country">Country</label>
                             <div class="controls">
-                                <input type="text" data-ng-model="tutorCtrl.country" id="country" class="form-control">
+                                <input type="text" data-ng-model="tutorCtrl.nric" id="nric" class="form-control text-muted" placeholder="NRIC No.">
                             </div>
                         </div>
                     </div>
@@ -51,30 +47,41 @@
                 <div class="row">
                     <div class="col-sm-6 col-sm-push-6">
                         <div class="form-group">
-                            <label class="control-label" for="email">Email</label>
                             <div class="controls">
-                                <input type="text" data-ng-model="tutorCtrl.email" id="email" class="form-control">
+                                <input type="text" data-ng-model="tutorCtrl.roadName" id="roadName" class="form-control text-muted" placeholder="Road Name">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="phone">Phone</label>
                             <div class="controls">
-                                <input type="text" data-ng-model="tutorCtrl.phone" id="phone" class="form-control">
+                                <input type="text" data-ng-model="tutorCtrl.email" id="email" class="form-control text-muted" placeholder="Email">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="controls text-right">
+                                <select data-ng-model="tutorCtrl.highestQual" id="highestQual" class="form-control">
+                                    <option ng-repeat="qual in ['PhD', 'Masters', 'Degree', 'Polytechnic Diploma', 'Junior College - A levels']">{{qual}}</option>
+                                </select>
+                                <label class="control-label" for="highestQual">Highest Qualification</label>
                             </div>
                         </div>
                     </div>
+
                     <div class="col-sm-6 col-sm-pull-6">
                         <div class="form-group">
-                            <label class="control-label" for="moeCert">MOE Certified</label>
                             <div class="controls">
-                                <input type="checkbox" data-ng-model="tutorCtrl.moeCert" id="moeCert" class="form-control cert-checkbox">
+                                <input type="text" data-ng-model="tutorCtrl.blockNo" id="blockNo" class="form-control text-muted" placeholder="Block No.">
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6">
-
+                        <div class="form-group">
+                            <div class="controls">
+                                <input type="text" data-ng-model="tutorCtrl.unitNo" id="unitNo" class="form-control text-muted" placeholder="Unit No.">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="controls">
+                                <input type="text" data-ng-model="tutorCtrl.phone" id="phone" class="form-control text-muted" placeholder="Phone">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </fieldset>

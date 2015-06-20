@@ -22,16 +22,34 @@ var TutorSchema = new Schema({
 		required: 'Please fill in last name',
 		trim: true
 	},
-	suburb: {
+	age: {
+		type: Number,
+		default: '',
+		required: 'Please enter your Age',
+		trim: true
+	},
+	nric: {
+		type: String,
+		default: '',
+		required: 'Please enter your NRIC',
+		trim: true
+	},
+	blockNo: {
+		type: String,
+		default: '',
+		required: 'Please enter your block number',
+		trim: true
+	},
+	roadName: {
 		type: String,
 		default: '',
 		required: 'Please fill in Suburb',
 		trim: true
 	},
-	country: {
+	unitNo: {
 		type: String,
 		default: '',
-		required: 'Please fill in Country',
+		required: 'Please enter your floor number & unit/house number',
 		trim: true
 	},
 	email: {
@@ -46,9 +64,11 @@ var TutorSchema = new Schema({
 		required: 'Please fill in phone number',
 		trim: true
 	},
-	moeCert: {
-		type: Boolean,
-		default: false
+	highestQual: {
+		type: String,
+		default: '',
+		required: 'Please select your highest education level',
+		trim: true
 	},			
 	created: {
 		type: Date,

@@ -2,10 +2,9 @@
 
 //Tutors service used to communicate Tutors REST endpoints
 
-
-
 angular.module('tutors')
 
+	//
 	.factory('Tutors', ['$resource',
 		function($resource) {
 			return $resource('tutors/:tutorId', { tutorId: '@_id'
@@ -17,7 +16,7 @@ angular.module('tutors')
 		}
 	])
 
-
+	// Updates the view after adding a new entry to mongodb
 	.factory('Notify', ['$rootScope', function($rootScope) {
 
 		var notify = {};
@@ -41,3 +40,5 @@ angular.module('tutors')
 	}
 
 	]);
+
+

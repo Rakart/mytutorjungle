@@ -7,7 +7,7 @@ angular.module('tutors').config(['$stateProvider',
 		$stateProvider.
 		state('listTutors', {
 			url: '/tutors',
-			templateUrl: 'modules/tutors/views/list-tutors.client.view.html'
+			templateUrl: 'modules/tutors/views/tinder-view.client.html'
 		});
 	}
 ]);

@@ -1,0 +1,16 @@
+<section data-ng-controller="TutorsController as tutorsCtrl">
+    <div class="page-header text-center">
+        <h2>Begin exploring our jungle...</h2>
+    </div>
+    <tutor-tinder ng-show='selected == $index' data-ng-repeat="tutor in tutorsCtrl.tutors"></tutor-tinder>
+    <div class="row">
+        <div class="col-sm-3 col-xs-1"></div>
+        <div class="col-sm-6 col-xs-10 text-center">
+            <button type="button" class="btn btn-success text-center" ng-click="tutorsCtrl.modalCreate('lg')">
+                <i class="glyphicon glyphicon-user"></i> <br>
+                Join us as a tutor!
+            </button>
+        </div>
+        <div class="col-sm-3 col-xs-1"></div>
+    </div>
+</section>

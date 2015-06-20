@@ -1,9 +1,14 @@
 .tutor-profile {
-	font-size: 250px;
+	font-size: 175px;
 }
 
-.tutor-list {
+.tutor-icon {
 	font-size: 100px;
+}
+
+.panel {
+	padding-left: 0;
+	padding-right: 0;
 }
 
 .cert-checkbox {
@@ -21,5 +26,6 @@
 }
 
 input[type="radio"], input[type="checkbox"] {
-	margin: 0px 0 0 !important;
+	margin: 0 0 0 !important;
 }
+
